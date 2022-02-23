@@ -16,11 +16,11 @@ abstract class AbstractRequest
         private readonly SerializerInterface $serializer
     ) {}
 
-    public function executeRequest(array $params = [], array $query = []): ResponseInterface
+    public function executeRequest(array $urlParams = [], array $query = []): ResponseInterface
     {
         $response = $this->client->request(
             'GET',
-            $this->getUrl($params),
+            $this->getUrl($urlParams),
             [
                 'http_errors' => true,
                 'query' => $query,
@@ -30,16 +30,16 @@ abstract class AbstractRequest
         $content = $response->getBody()->getContents();
         $responseClass = $this->getResponseClass();
 
-        if (is_subclass_of($responseClass, CollectionResponseInterface::class)) {
-            $content = $this->prepareCollectionResponseData($content);
+        if (is_subclass_of($responseClass, CollectionResponseInterface::class) && null !== $responseClass::COLLECTION_NAME) {
+            $content = $this->prepareCollectionResponseData($content, $responseClass::COLLECTION_NAME);
         }
 
         return $this->createResponse($this->getResponseClass(), $content);
     }
 
-    private function getUrl(array $params): string
+    private function getUrl(array $urlParams): string
     {
-        return vsprintf($this->getUri(), $params);
+        return vsprintf($this->getUri(), $urlParams);
     }
 
     private function createResponse(string $class, string $response): ResponseInterface
@@ -47,10 +47,10 @@ abstract class AbstractRequest
         return $this->serializer->deserialize($response, $class, 'json');
     }
 
-    private function prepareCollectionResponseData(string $response): string
+    private function prepareCollectionResponseData(string $response, string $collectionName): string
     {
         return json_encode(
-            ['value' => json_decode($response, true, 512, JSON_THROW_ON_ERROR)],
+            [$collectionName => json_decode($response, true, 512, JSON_THROW_ON_ERROR)],
             JSON_THROW_ON_ERROR
         );
     }

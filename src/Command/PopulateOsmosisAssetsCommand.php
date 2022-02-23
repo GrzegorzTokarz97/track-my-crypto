@@ -45,7 +45,7 @@ class PopulateOsmosisAssetsCommand extends Command
         $assets = $this->assetsRequest->executeRequest();
         $repository = $this->documentManager->getRepository(OsmosisAsset::class);
 
-        dump($this->assetPriceRequest->executeRequest(['OSMO']));
+//        dump($this->assetPriceRequest->executeRequest(['OSMO']));
 
         foreach ($assets->getAssets() as $assetResponse) {
             $name = $assetResponse->getName();

@@ -8,8 +8,10 @@ use App\Classes\Response\CollectionResponseInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 
-class OsmosisAssetCollectionResponse implements CollectionResponseInterface
+final class OsmosisAssetCollectionResponse implements CollectionResponseInterface
 {
+    public const COLLECTION_NAME = 'value';
+
     #[
         JMS\Type(name: 'ArrayCollection<App\Classes\Response\OsmosisAsset\OsmosisAssetResponse>'),
         JMS\Accessor(getter: 'getValue', setter: 'setValue')

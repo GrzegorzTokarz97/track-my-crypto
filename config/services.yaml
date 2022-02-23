@@ -24,6 +24,7 @@ services:
             - '../src/Document/'
             - '../src/Repository/'
             - '../src/Classes/ValueObject'
+            - '../src/Classes/Response'
 
     App\Classes\Request\AbstractRequest:
         arguments:

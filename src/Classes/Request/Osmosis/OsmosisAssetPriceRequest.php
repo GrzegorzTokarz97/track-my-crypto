@@ -8,9 +8,9 @@ use App\Classes\Request\AbstractRequest;
 use App\Classes\Response\PriceResponse;
 
 /**
- * @method PriceResponse executeRequest(array $params = [], array $query = [])
+ * @method PriceResponse executeRequest(array $urlParams = [], array $query = [])
  */
-class OsmosisAssetPriceRequest extends AbstractRequest
+final class OsmosisAssetPriceRequest extends AbstractRequest
 {
     protected function getUri(): string
     {

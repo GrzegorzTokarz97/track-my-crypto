@@ -8,9 +8,9 @@ use App\Classes\Request\AbstractRequest;
 use App\Classes\Response\OsmosisAsset\OsmosisAssetCollectionResponse;
 
 /**
- * @method OsmosisAssetCollectionResponse executeRequest(array $params = [], array $query = [])
+ * @method OsmosisAssetCollectionResponse executeRequest(array $urlParams = [], array $query = [])
  */
-class OsmosisAssetsRequest extends AbstractRequest
+final class OsmosisAssetsRequest extends AbstractRequest
 {
     protected function getUri(): string
     {

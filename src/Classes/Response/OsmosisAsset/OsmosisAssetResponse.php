@@ -7,7 +7,7 @@ namespace App\Classes\Response\OsmosisAsset;
 use App\Classes\Response\ResponseInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class OsmosisAssetResponse implements ResponseInterface
+final class OsmosisAssetResponse implements ResponseInterface
 {
     #[JMS\Type(name: 'string')]
     private string $denom;
