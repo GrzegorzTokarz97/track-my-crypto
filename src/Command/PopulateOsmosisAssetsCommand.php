@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Classes\Request\Osmosis\OsmosisAssetPriceRequest;
 use App\Classes\Request\Osmosis\OsmosisAssetsRequest;
 use App\Document\OsmosisAsset;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -23,7 +22,6 @@ class PopulateOsmosisAssetsCommand extends Command
     public function __construct(
         private readonly DocumentManager $documentManager,
         private readonly OsmosisAssetsRequest $assetsRequest,
-        private readonly OsmosisAssetPriceRequest $assetPriceRequest,
     ) {
         parent::__construct();
     }
@@ -44,8 +42,6 @@ class PopulateOsmosisAssetsCommand extends Command
 
         $assets = $this->assetsRequest->executeRequest();
         $repository = $this->documentManager->getRepository(OsmosisAsset::class);
-
-//        dump($this->assetPriceRequest->executeRequest(['OSMO']));
 
         foreach ($assets->getAssets() as $assetResponse) {
             $name = $assetResponse->getName();
